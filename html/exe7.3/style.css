@@ -1,0 +1,22 @@
+*{
+    box-sizing: border-box;
+}
+
+.greeting-card {
+
+    background-color: burlywood;
+    border: solid 4px;
+    box-shadow: 2px 2px 5px;
+    padding: 10px;
+    width: 250px;
+    text-align: center;
+    margin: auto;
+}
+/* header .greeting-card header{
+    display: inline;
+    
+    justify-items: center; 
+} */
+div {
+
+}
