@@ -1,0 +1,28 @@
+.flex-container{
+    display: flex;
+}
+.flex-container > div{
+    font-size: 30px;
+    width: 40px;
+}
+.d1{
+    background-color:green ;
+}
+.d2{
+    background-color:blue ;
+}
+.d3{
+    background-color:red ;
+}
+
+.flex-container2 > div{
+    font-size: 30px;
+    width: 40px;
+}
+.flex-container2{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
