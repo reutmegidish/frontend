@@ -1,0 +1,23 @@
+.flex-container{
+    display: flex;
+    list-style: none;
+    
+
+}
+.nav-item{
+    padding: 5px;
+    margin: 5px;
+    flex-wrap: wrap;
+    flex: 1;
+
+}
+.flex-grow{
+    flex: 7;
+}
+
+@media (max-width: 800px) {
+    .flex-container {
+      flex-direction: column;
+      align-items: center;
+    }
+}

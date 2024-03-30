@@ -7,7 +7,6 @@
     font-size: 30px;
     width: 40px;
     height: 40px;
-
 }
 .d1{
     background-color:green ;
@@ -23,13 +22,11 @@
     font-size: 30px;
     width: 40px;
     height: 40px;
+    margin: 5px;
 }
 .flex-container2{
-    display: flex;
+    display:  flex;
+    flex-direction: column;
     height: 150px;
     background-color: antiquewhite;
-    justify-content: space-between;
 }
-
-
-
