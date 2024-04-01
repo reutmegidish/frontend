@@ -1,0 +1,40 @@
+*{
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+/* :root {
+   
+    --main-color: #007bff; 
+    --font-family: 'Arial', sans-serif; 
+    --font-size: 16px; 
+    --spacing: 10px; 
+  } */
+  
+.card-container{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 400px;
+    height: 500px;
+    padding: 10px;
+    background-color: var(--container-bg, bisque);
+    border-radius: 50px;
+    margin: auto;
+}
+   .circle-image {
+        width: 200px; 
+        height: 200px; 
+        border-radius: 50%; 
+        overflow: hidden; 
+    }
+ 
+    
+   .dark-theme{
+    color: rgb(4, 4, 44);
+    --container-bg: gray;
+
+   }

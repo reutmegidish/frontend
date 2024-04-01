@@ -1,0 +1,14 @@
+.box {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    background-color: blue;
+}
+.box::after{
+    content: "";
+    position: absolute;
+    background-color: red;
+    width: 50%;
+    height: 100%;
+}
+
