@@ -35,6 +35,10 @@
     
    .dark-theme{
     color: rgb(4, 4, 44);
-    --container-bg: gray;
+    /* --container-bg: gray; */
 
+   }
+
+   .dark-theme .card-container{
+    background-color: grey;
    }

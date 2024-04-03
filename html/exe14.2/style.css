@@ -1,0 +1,152 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  padding: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  width: 600px;
+  height: 600px;
+  background-color: aqua;
+  gap: 10px;
+}
+.btn {
+  width: 100px;
+  height: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.translate-y {
+  background-color: blue;
+}
+.translate-y::after {
+  content: "cool";
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition-duration: 0.4s;
+  background-color: red;
+}
+.translate-y:hover::after {
+  top: 0%;
+}
+
+/* btn translate-x */
+.translate-x {
+  background-color: blue;
+}
+.translate-x::after {
+  content: "Translate-y";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  transition: 0.4s ease;
+  background-color: red;
+}
+.translate-x:hover::after {
+  left: 0%;
+}
+
+/* btn rotate */
+
+.rotate::after {
+  content: "rotate";
+  position: absolute;
+  top: -150px;
+  left: -100px;
+  width: 100px;
+  height: 300px;
+  /* transform: rotateZ(90deg); */
+  transition: 2s ease;
+  background-color: red;
+}
+.rotate:hover::after {
+  transform: rotateZ(-90deg);
+  /* transform: rotate(-90deg); */
+  left: -100;
+}
+
+.skew {
+  width: 150;
+}
+.skew::after {
+  content: "rotate";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 50%;
+  width: 50%;
+  transform: skew(180deg);
+  transition: 1s ease-in-out;
+  background-color: red;
+}
+.skew:hover::after {
+  transform: skew(0deg);
+  /* transform: rotate(-90deg); */
+  left: 0;
+}
+
+/* 
+4
+        position: relative;
+        overflow: hidden;
+      }
+      .box4:before {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        position: absolute;
+        content: "Scale";
+        font-size: 40px;
+        color: white;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        scale: 3;
+        transition: scale 2s, opacity 2s;
+        opacity: 0;
+      }
+      .box4:hover:before {
+        scale: 1;
+        opacity: 1;
+      } */
+
+/* .box5 {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        transition: all 1s;
+      }
+      .box5:before {
+        content: "";
+        position: absolute;
+        width: 0%;
+        height: 0%;
+        background-color: pink;
+        transition: all 1s;
+        z-index: -1;
+      }
+      .box5:hover {
+        transform: skew(0deg, -10deg);
+      }
+      .box5:hover:before {
+        width: 100%;
+        height: 100%;
+        transform: skew(180deg, 180deg);
+      } */
+/* 
+      witdh: 200px
+      height:150
+      */

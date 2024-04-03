@@ -1,0 +1,5 @@
+li:hover {
+  color: aqua;
+}
+li::before {
+}

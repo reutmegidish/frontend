@@ -1,0 +1,19 @@
+div {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  background-color: red;
+  /* transition: width 2s linear 1s; */
+}
+div::after {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background-color: blue;
+  transition: width 2s ease;
+}
+
+div:hover::after {
+  width: 0px;
+}

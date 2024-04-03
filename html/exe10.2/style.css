@@ -1,0 +1,39 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+div {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* font-size: 30px; */
+}
+.first-container {
+  width: 1500px;
+}
+
+.first-container p {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.5em;
+  color: brown;
+}
+
+/*---------------------------------------------------------*/
+.second-container {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1.5rem;
+  color: blue;
+}
+
+html {
+  font-size: 10px;
+}
+
+/*-----------------------------------------------------------*/
+.third-container {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 3vw;
+  color: blueviolet;
+}
