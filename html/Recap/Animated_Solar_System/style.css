@@ -1,0 +1,80 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  background-color: black;
+}
+
+.solar-system {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 450px;
+  height: 450px;
+  background-color: bisque;
+}
+.sun {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  background-color: yellow;
+  border-radius: 50%;
+  color: yellow;
+}
+.oval1 {
+  position: absolute;
+  align-content: center;
+  height: 180px;
+  width: 80px;
+  background: transparent;
+  border-radius: 50%;
+  border: dotted;
+}
+.oval2 {
+  display: flex;
+  position: absolute;
+  align-content: flex-start;
+  align-items: center;
+  height: 210px;
+  width: 120px;
+  background: transparent;
+  border-radius: 50%;
+  border: dotted;
+}
+.planet-mercury {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: brown;
+  border-radius: 50%;
+}
+.planet-venus {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background-color: orange;
+  border-radius: 50%;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate-infinite {
+  animation: rotate 4s linear infinite;
+}
+.rotate-infinite2 {
+  animation: rotate 10s linear infinite;
+}
