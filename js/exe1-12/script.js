@@ -407,7 +407,7 @@ if (numa) {
 
 // console.log(numTrue); // Output: 1
 // console.log(numFalse); // Output: 0
-
+//
 let boolTrue = true;
 let boolFalse = false;
 
