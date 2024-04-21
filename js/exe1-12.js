@@ -341,7 +341,46 @@ const d = 15;
 const e = 4;
 console.log(d % e);
 
-// 11.1 to do
+//
+//
+
+// 11.1
+console.log("-------------");
+const currentDateAndTime = new Date();
+console.log("11.1" + currentDateAndTime);
+
+// 11.2
+const year = new Date().getFullYear();
+console.log(year);
+
+// 11.3
+const month = new Date().getMonth();
+console.log(month);
+
+// 11.4
+const today11 = new Date().getDate();
+console.log("today" + today11);
+
+// 11.5
+const dayToday = new Date().getDay();
+console.log(dayToday);
+
+// 11.6
+const date = new Date();
+const hours = [date.getHours(), date.getMinutes(), date.getSeconds()];
+console.log(`hours: ${hours[0]}, minutes: ${hours[1]}, seconds: ${hours[2]}`);
+
+// 11.7
+const daysInMonth = new Date(2023, 2, 0).getDate();
+console.log(daysInMonth);
+
+// 11.8
+
+//
+// continue -------------------------------
+//
+const currentday = new Date(+1);
+console.log(currentday);
 
 // 12.1
 const num113 = 123;
