@@ -1,0 +1,30 @@
+#grid {
+  display: grid;
+  grid-template-columns: repeat(10, 30px);
+  gap: 2px;
+}
+
+.cell {
+  width: 30px;
+  height: 30px;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ddd;
+}
+
+.player {
+  background-color: blue;
+}
+
+.treasure {
+  background-color: gold;
+}
+
+.trap {
+  background-color: red;
+}
+.mm {
+  border: 5px solid red;
+}
