@@ -1,54 +1,55 @@
 const rows = 10;
 const cols = 10;
 const matrix = new Array(rows).fill().map(() => new Array(10).fill(undefined));
+const gridStartIndex = 0;
+const gridEndIndex = matrix.length - 1;
 
-const startPotion = [0, 0];
-const occupiedPositions = [startPotion];
-const numOfMove = 21;
+const startPosition = [0, 0];
+const occupiedPositions = [startPosition];
+
+const maxMoves = 21;
+const treasureCount = 5;
+const trapCount = 3;
 
 const treasureClassList = "treasure";
 const trapClassList = "trap";
-const playerClassList = "player";
-const movesClassList = "moves";
+const playerElementId = "player";
+const movesElementId = "moves";
+const scoreElementId = "score";
+const gridElementId = "grid";
 
-const movesElement = () => {
-  const moves = document.getElementById(movesClassList);
-  return moves;
-};
+const initMaxMovesElement = (getElementById(movesElementId).textContent =
+  maxMoves);
+const initScoreElement = (getElementById(scoreElementId).textContent = 0);
 
-const initMovesElement = (movesElement().textContent = numOfMove);
-
-const movesSelectorValue = () => {
-  return document.getElementById("moves").textContent;
-};
-
-displayMatrix(matrix);
-generatePotions(5, 0, matrix.length - 1, treasureClassList);
-generatePotions(3, 0, matrix.length - 1, trapClassList);
+displayMatrix(matrix, gridElementId);
+generateGameElements(
+  treasureCount,
+  gridStartIndex,
+  gridEndIndex,
+  treasureClassList
+);
+generateGameElements(trapCount, gridStartIndex, gridEndIndex, trapClassList);
 
 let [xPostion, yPosition] = [0, 0];
 let currentPosition = matrix[xPostion][yPosition];
 
-addPlayerClassList();
-// NEED TO CHECK THIS FUNCTION
-function addPlayerClassList() {
-  currentPosition.classList.toggle(playerClassList);
+addClassList(playerElementId);
+function addClassList(elementId) {
+  currentPosition.classList.add(elementId);
 }
 
-function displayMatrix(matrix) {
-  const grid = document.getElementById("grid");
+function removeClassList(elementId) {
+  currentPosition.classList.remove(elementId);
+}
 
-  matrix.forEach((col, colIndex) => {
-    const column = document.createElement("div");
-    col.forEach((row, rowIndex) => {
-      const cell = document.createElement("div");
+function getElementById(elementId) {
+  const element = document.getElementById(elementId);
+  return element;
+}
 
-      cell.classList.add("cell");
-      column.appendChild(cell);
-      matrix[rowIndex][colIndex] = cell;
-    });
-    grid.appendChild(column);
-  });
+function getTextContentById(elementId) {
+  return document.getElementById(elementId).textContent;
 }
 
 function getRandomNumber(min, max) {
@@ -61,11 +62,19 @@ function isPositionOccupied(position) {
   );
 }
 
-function generatePotions(num, min, max, elementClass) {
-  for (let i = 0; i < num; i++) {
+function generateGameElements(
+  elementCount,
+  gridStartIndex,
+  gridEndIndex,
+  elementClass
+) {
+  for (let i = 0; i < elementCount; i++) {
     let position;
     do {
-      position = [getRandomNumber(min, max), getRandomNumber(min, max)];
+      position = [
+        getRandomNumber(gridStartIndex, gridEndIndex),
+        getRandomNumber(gridStartIndex, gridEndIndex),
+      ];
     } while (isPositionOccupied(position));
     occupiedPositions.push(position);
 
@@ -86,8 +95,9 @@ function movePlayer(direction) {
   const newY = directions[direction][1] + yPosition;
 
   if (isMoveAlowed(newX, newY)) {
-    if (movesElement().textContent > 0) generateUIMovesLeft();
-    else {
+    if (Number(getTextContentById(movesElementId)) > 0) {
+      generateUIGameMetric(movesElementId, -1);
+    } else {
       alert("youre out of move");
     }
     if (isTrap(newX, newY)) {
@@ -96,16 +106,17 @@ function movePlayer(direction) {
     } else movePlayerPosition(newX, newY);
     if (isTreasure()) {
       handleTreasure();
+      generateUIGameMetric(scoreElementId, 1);
     }
   }
 }
 
 function movePlayerPosition(newX, newY) {
-  currentPosition.classList.remove(playerClassList);
+  removeClassList(playerElementId);
   [xPostion, yPosition] = [newX, newY];
 
   currentPosition = matrix[xPostion][yPosition];
-  currentPosition.classList.add(playerClassList);
+  addClassList(playerElementId);
 }
 
 function isMoveAlowed(newX, newY) {
@@ -125,15 +136,31 @@ function handleTrap() {
 }
 
 function handleTreasure() {
-  currentPosition.classList.remove(treasureClassList);
+  removeClassList(treasureClassList);
 }
 
-function decreasesMovesLeft() {
-  const movesLeft = Number(movesSelectorValue()) - 1;
-  return movesLeft;
+function updateGameMetric(elementId, changeAmount) {
+  const currentMeticVal = Number(getTextContentById(elementId)) + changeAmount;
+  return currentMeticVal;
+}
+//
+function generateUIGameMetric(elementId, changeAmount) {
+  const currentMeticVal = updateGameMetric(elementId, changeAmount);
+  getElementById(elementId).textContent = currentMeticVal;
 }
 
-function generateUIMovesLeft() {
-  const movesLeft = decreasesMovesLeft();
-  movesElement().textContent = movesLeft;
+function displayMatrix(matrix, containerId) {
+  const grid = getElementById(containerId);
+
+  matrix.forEach((col, colIndex) => {
+    const column = document.createElement("div");
+    col.forEach((row, rowIndex) => {
+      const cell = document.createElement("div");
+
+      cell.classList.add("cell");
+      column.appendChild(cell);
+      matrix[rowIndex][colIndex] = cell;
+    });
+    grid.appendChild(column);
+  });
 }
