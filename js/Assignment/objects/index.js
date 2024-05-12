@@ -647,8 +647,34 @@ const CarAgencyManager = {
     const agency = this.searchAgency(agencyId);
 
     if (agency) {
-      agency.cars.push(car);
-      return true;
+      const brandIndex = agency.cars.findIndex(
+        (cuurentCar) => cuurentCar.brand === car.brand
+      );
+
+      if (brandIndex !== -1) {
+        agency.cars[brandIndex].models.push({
+          name: car.name,
+          year: car.year,
+          price: car.price,
+          carNumber: car.carNumber,
+          ownerId: car.ownerId,
+        });
+        return car;
+      } else {
+        agency.cars.push({
+          brand: car.brand,
+          models: [
+            {
+              name: car.name,
+              year: car.year,
+              price: car.price,
+              carNumber: car.carNumber,
+              ownerId: car.ownerId,
+            },
+          ],
+        });
+        return car;
+      }
     }
     return false;
   },
@@ -659,21 +685,21 @@ const CarAgencyManager = {
   // @return {boolean} - true if removed successfully, false otherwise
   removeCarFromAgency(agencyId, carNumber) {
     const agency = this.searchAgency(agencyId);
-
     let removedCarModel;
-    const carRemoved = agency.cars.find((car) => {
-      const index = car.models.findIndex(
-        (model) => model.carNumber === carNumber
-      );
 
-      if (index !== -1) {
-        removedCarModel = car.models.splice(index, 1);
+    if (agency) {
+      const carToRemoved = agency.cars.find((car) => {
+        const index = car.models.findIndex(
+          (model) => model.carNumber === carNumber
+        );
 
-        return true;
-      }
-      return false;
-    });
-    return removedCarModel;
+        if (index !== -1) {
+          removedCarModel = car.models.splice(index, 1);
+          return true;
+        }
+      });
+    }
+    return removedCarModel ? [...removedCarModel] : false;
   },
 
   // Change the cash or credit of an agency.
@@ -725,7 +751,7 @@ const CarAgencyManager = {
         );
       }, 0);
     }
-    return "agency/cars not found";
+    return 0;
   },
 
   // Transfer a car from one agency to another.
@@ -734,71 +760,18 @@ const CarAgencyManager = {
   // @param {string} carId - The ID of the car to be transferred
   // @return {boolean} - true if transferred successfully, false otherwise
   transferCarBetweenAgencies(fromAgencyId, toAgencyId, carId) {
-    console.log("0", agencies[0].cars[0].models);
-    console.log("1", agencies[1].cars[0].models);
-    const agency = this.searchAgency(toAgencyId);
-    if (agency) {
+    const toAgency = this.searchAgency(toAgencyId);
+    const fromAgency = this.searchAgency(toAgencyId);
+
+    if (toAgency && fromAgency) {
       const carToTransfer = this.removeCarFromAgency(fromAgencyId, carId);
-      // check to add
-      this.addCarToAgency(toAgencyId, carToTransfer);
-      console.log("0", agencies[0].cars[0].models);
-      console.log("1", agencies[1].cars[0].models);
-      return true;
+
+      const addCar = this.addCarToAgency(toAgencyId, carToTransfer);
+      if (addCar && carToTransfer) return true;
     }
     return false;
   },
 };
-
-// const getAgency = CarAgencyManager.searchAgency("Best Deal");
-// console.log(getAgency);
-
-// const getArrAgencies = CarAgencyManager.getAllAgencies();
-// console.log(getArrAgencies);
-// console.log(agencies.length);
-
-const sCar = {
-  brand: "added______",
-  models: [
-    {
-      name: "added______",
-      year: 2015,
-      price: 137000,
-      carNumber: "AZJZ4",
-      ownerId: "Plyq5M5AZ",
-    },
-    {
-      name: "X6",
-      year: 2020,
-      price: 966500,
-      carNumber: "S6DL1",
-      ownerId: "Plyq5M5AZ",
-    },
-  ],
-};
-
-// const addCar = CarAgencyManager.addCarToAgency("Plyq5M5AZ", sCar);
-// console.log(addCar);
-
-// console.log(
-//   "remove",
-//   CarAgencyManager.removeCarFromAgency("Best Deal", "AZJZ4")
-// );
-
-// console.log(CarAgencyManager.changeAgencyCashOrCredit("Plyq5M5AZ", 2));
-// console.log(agencies);
-
-// console.log(CarAgencyManager.updateCarPrice("26_IPfHU1", "kAnv-", 2)); // "CarMax, x6"
-// console.log(agencies[1].cars[0].models);
-
-// console.log(CarAgencyManager.getTotalAgencyRevenue("26_IPfHU1")); //CarMax
-
-// console.log(
-//   CarAgencyManager.transferCarBetweenAgencies("Plyq5M5AZ", "26_IPfHU1", "AZJZ4")
-// );
-
-console.log(
-  CarAgencyManager.transferCarBetweenAgencies("Best Deal", "CarMax", "AZJZ4")
-);
 
 const CustomerManager = {
   customers,
@@ -869,49 +842,64 @@ const CarPurchaseManager = {
 
 // Test CarAgencyManager
 
-// Test searchAgency
-// console.log('Testing searchAgency...');
-// console.log(CarAgencyManager.searchAgency('Plyq5M5AZ')); // Should return agency with ID 'Plyq5M5AZ'
-// console.log(CarAgencyManager.searchAgency('Best Deal')); // Should return agency with name 'Best Deal'
-// console.log(CarAgencyManager.searchAgency('InvalidIdOrName')); // Should return null
+//////////// tests ////////////
+// // Test searchAgency
+// console.log("Testing searchAgency...");
+// console.log(CarAgencyManager.searchAgency("Plyq5M5AZ")); // Should return agency with ID 'Plyq5M5AZ'
+// console.log(CarAgencyManager.searchAgency("Best Deal")); // Should return agency with name 'Best Deal'
+// console.log(CarAgencyManager.searchAgency("InvalidIdOrName")); // Should return null
 
 // // Test getAllAgencies
-// console.log('Testing getAllAgencies...');
+// console.log("Testing getAllAgencies...");
 // console.log(CarAgencyManager.getAllAgencies()); // Should return all agency names
 
-// // Test addCarToAgency
-// console.log('Testing addCarToAgency...');
-// console.log(CarAgencyManager.addCarToAgency('Plyq5M5AZ', {
-//   brand: "Ferrari",
-//   name: "Enzo",
-//   year: 2023,
-//   price: 3000000,
-//   carNumber: "Enzo1",
-//   ownerId: "Plyq5M5AZ",
-// })); // Should return true
+// Test addCarToAgency
+console.log("Testing addCarToAgency...");
+console.log(
+  CarAgencyManager.addCarToAgency("Plyq5M5AZ", {
+    brand: "Ferrari",
+    name: "Enzo",
+    year: 2023,
+    price: 3000000,
+    carNumber: "Enzo1",
+    ownerId: "Plyq5M5AZ",
+  })
+); // Should return true
 
 // // Test removeCarFromAgency
-// console.log('Testing removeCarFromAgency...');
-// console.log(CarAgencyManager.removeCarFromAgency('Plyq5M5AZ', 'Enzo1')); // Should return true
+console.log("\nTesting removeCarFromAgency...");
+console.log(CarAgencyManager.removeCarFromAgency("Plyq5M5AZ", "Enzo1")); // Should return true
 
 // // Test changeAgencyCashOrCredit
-// console.log('Testing changeAgencyCashOrCredit...');
-// console.log(CarAgencyManager.changeAgencyCashOrCredit('Plyq5M5AZ', 1500000)); // Should return true
-// console.log(CarAgencyManager.changeAgencyCashOrCredit('InvalidAgencyId', 1500000)); // Should return false
+console.log("\nTesting changeAgencyCashOrCredit...");
+console.log(CarAgencyManager.changeAgencyCashOrCredit("Plyq5M5AZ", 1500000)); // Should return true
+console.log(
+  CarAgencyManager.changeAgencyCashOrCredit("InvalidAgencyId", 1500000)
+); // Should return false
 
 // // Test updateCarPrice
-// console.log('Testing updateCarPrice...');
-// console.log(CarAgencyManager.updateCarPrice('Plyq5M5AZ', 'AZJZ4', 150000)); // Should return true
-// console.log(CarAgencyManager.updateCarPrice('InvalidAgencyId', 'AZJZ4', 150000)); // Should return false
+console.log("\nTesting updateCarPrice...");
+console.log(CarAgencyManager.updateCarPrice("Plyq5M5AZ", "AZJZ4", 150000)); // Should return true
+console.log(
+  CarAgencyManager.updateCarPrice("InvalidAgencyId", "AZJZ4", 150000)
+); // Should return false
 
 // // Test getTotalAgencyRevenue
-// console.log('Testing getTotalAgencyRevenue...');
-// console.log(CarAgencyManager.getTotalAgencyRevenue('Plyq5M5AZ')); // Should return the total revenue of agency with ID 'Plyq5M5AZ'
+console.log("\nTesting getTotalAgencyRevenue...");
+console.log(CarAgencyManager.getTotalAgencyRevenue("Plyq5M5AZ")); // Should return the total revenue of agency with ID 'Plyq5M5AZ'
 
 // // Test transferCarBetweenAgencies
-// console.log('Testing transferCarBetweenAgencies...');
-// console.log(CarAgencyManager.transferCarBetweenAgencies('Plyq5M5AZ', '26_IPfHU1', 'AZJZ4')); // Should return true
-// console.log(CarAgencyManager.transferCarBetweenAgencies('InvalidAgencyId', '26_IPfHU1', 'AZJZ4')); // Should return false
+console.log("\nTesting transferCarBetweenAgencies...");
+console.log(
+  CarAgencyManager.transferCarBetweenAgencies("Plyq5M5AZ", "26_IPfHU1", "AZJZ4")
+); // Should return true
+console.log(
+  CarAgencyManager.transferCarBetweenAgencies(
+    "InvalidAgencyId",
+    "26_IPfHU1",
+    "AZJZ4"
+  )
+); // Should return false
 
 // // Test CustomerManager
 
