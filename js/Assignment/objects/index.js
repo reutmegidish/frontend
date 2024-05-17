@@ -779,7 +779,12 @@ const CustomerManager = {
   // Search for a customer by their name or ID.
   // @param {string} idOrName - ID or name of the customer
   // @return {object} - customer object if found, otherwise null
-  searchCustomer(idOrName) {},
+  searchCustomer(idOrName) {
+    const foundCustomer = customers.find((customer) => {
+      return customer.id === idOrName || customer.name === idOrName;
+    });
+    return foundCustomer || null;
+  },
 
   // Retrieve all customers' names.
   // @return {string[]} - Array of customer names
@@ -844,17 +849,17 @@ const CarPurchaseManager = {
 
 //////////// tests ////////////
 // // Test searchAgency
-// console.log("Testing searchAgency...");
-// console.log(CarAgencyManager.searchAgency("Plyq5M5AZ")); // Should return agency with ID 'Plyq5M5AZ'
-// console.log(CarAgencyManager.searchAgency("Best Deal")); // Should return agency with name 'Best Deal'
-// console.log(CarAgencyManager.searchAgency("InvalidIdOrName")); // Should return null
+console.log("\n Testing searchAgency...");
+console.log(CarAgencyManager.searchAgency("Plyq5M5AZ")); // Should return agency with ID 'Plyq5M5AZ'
+console.log(CarAgencyManager.searchAgency("Best Deal")); // Should return agency with name 'Best Deal'
+console.log(CarAgencyManager.searchAgency("InvalidIdOrName")); // Should return null
 
 // // Test getAllAgencies
-// console.log("Testing getAllAgencies...");
-// console.log(CarAgencyManager.getAllAgencies()); // Should return all agency names
+console.log("\nTesting getAllAgencies...");
+console.log(CarAgencyManager.getAllAgencies()); // Should return all agency names
 
 // Test addCarToAgency
-console.log("Testing addCarToAgency...");
+console.log("\n Testing addCarToAgency...");
 console.log(
   CarAgencyManager.addCarToAgency("Plyq5M5AZ", {
     brand: "Ferrari",
@@ -867,29 +872,29 @@ console.log(
 ); // Should return true
 
 // // Test removeCarFromAgency
-console.log("\nTesting removeCarFromAgency...");
+console.log("\n Testing removeCarFromAgency...");
 console.log(CarAgencyManager.removeCarFromAgency("Plyq5M5AZ", "Enzo1")); // Should return true
 
 // // Test changeAgencyCashOrCredit
-console.log("\nTesting changeAgencyCashOrCredit...");
+console.log("\n Testing changeAgencyCashOrCredit...");
 console.log(CarAgencyManager.changeAgencyCashOrCredit("Plyq5M5AZ", 1500000)); // Should return true
 console.log(
   CarAgencyManager.changeAgencyCashOrCredit("InvalidAgencyId", 1500000)
 ); // Should return false
 
 // // Test updateCarPrice
-console.log("\nTesting updateCarPrice...");
+console.log("\n Testing updateCarPrice...");
 console.log(CarAgencyManager.updateCarPrice("Plyq5M5AZ", "AZJZ4", 150000)); // Should return true
 console.log(
   CarAgencyManager.updateCarPrice("InvalidAgencyId", "AZJZ4", 150000)
 ); // Should return false
 
 // // Test getTotalAgencyRevenue
-console.log("\nTesting getTotalAgencyRevenue...");
+console.log("\n Testing getTotalAgencyRevenue...");
 console.log(CarAgencyManager.getTotalAgencyRevenue("Plyq5M5AZ")); // Should return the total revenue of agency with ID 'Plyq5M5AZ'
 
 // // Test transferCarBetweenAgencies
-console.log("\nTesting transferCarBetweenAgencies...");
+console.log("\n Testing transferCarBetweenAgencies...");
 console.log(
   CarAgencyManager.transferCarBetweenAgencies("Plyq5M5AZ", "26_IPfHU1", "AZJZ4")
 ); // Should return true
@@ -904,55 +909,55 @@ console.log(
 // // Test CustomerManager
 
 // // Test searchCustomer
-// console.log('Testing searchCustomer...');
-// console.log(CustomerManager.searchCustomer("BGzHhjnE8")); // Should return customer with ID 'BGzHhjnE8'
-// console.log(CustomerManager.searchCustomer("Lilah Goulding")); // Should return customer with name 'Lilah Goulding'
-// console.log(CustomerManager.searchCustomer("Invalid ID or Name")); // Should return null
+console.log("\n Testing searchCustomer...");
+console.log(CustomerManager.searchCustomer("BGzHhjnE8")); // Should return customer with ID 'BGzHhjnE8'
+console.log(CustomerManager.searchCustomer("Lilah Goulding")); // Should return customer with name 'Lilah Goulding'
+console.log(CustomerManager.searchCustomer("Invalid ID or Name")); // Should return null
 
 // // Test getAllCustomers
-// console.log('Testing getAllCustomers...');
+// console.log('\n  Testing getAllCustomers...');
 // console.log(CustomerManager.getAllCustomers()); // Should return all customer names
 
 // // Test changeCustomerCash
-// console.log('Testing changeCustomerCash...');
+// console.log('\n  Testing changeCustomerCash...');
 // console.log(CustomerManager.changeCustomerCash("BGzHhjnE8", 50000)); // Should return true
 // console.log(CustomerManager.changeCustomerCash("Invalid ID", 50000)); // Should return false
 
 // // Test getCustomerTotalCarValue
-// console.log('Testing getCustomerTotalCarValue...');
+// console.log('\n Testing getCustomerTotalCarValue...');
 // console.log(CustomerManager.getCustomerTotalCarValue("2RprZ1dbL")); // Should return total car value of customer with ID '2RprZ1dbL'
 // console.log(CustomerManager.getCustomerTotalCarValue("Invalid ID")); // Should return 0
 
 // // Test CarManager
 
 // // Test getAllCars
-// console.log('Testing getAllCars...');
+// console.log('\n Testing getAllCars...');
 // console.log(CarManager.getAllCars()); // Should return all cars
 
 // // Test searchCars
-// console.log('Testing searchCars...');
+// console.log('\n Testing searchCars...');
 // console.log(CarManager.searchCars(2020, 200000, 'bmw')); // Should return all BMW cars from 2020 with price <= 200000
 // console.log(CarManager.searchCars(2020, 200000)); // Should return all cars from 2020 with price <= 200000
 
 // // Test getMostExpensiveCar
-// console.log('Testing getMostExpensiveCar...');
+// console.log('\n Testing getMostExpensiveCar...');
 // console.log(CarManager.getMostExpensiveCar()); // Should return the most expensive car
 
 // // Test getCheapestCar
-// console.log('Testing getCheapestCar...');
+// console.log('\n Testing getCheapestCar...');
 // console.log(CarManager.getCheapestCar()); // Should return the cheapest car
 
 // // Test CarPurchaseManager
 
 // // Test sellCar
-// console.log('Testing sellCar...');
+// console.log('\n Testing sellCar...');
 // console.log(CarPurchaseManager.sellCar('AZJZ4', 'BGzHhjnE8')); // Should return true if car with ID 'AZJZ4' is sold to customer with ID 'BGzHhjnE8'
 // console.log(CarPurchaseManager.sellCar('InvalidCarId', 'BGzHhjnE8')); // Should return false
 
 // // Test getTotalMarketRevenue
-// console.log('Testing getTotalMarketRevenue...');
+// console.log('\n Testing getTotalMarketRevenue...');
 // console.log(CarPurchaseManager.getTotalMarketRevenue()); // Should return the total market revenue
 
 // // Test Tax Authority Updates
-// console.log('Testing Tax Authority Updates...');
+// console.log('\n Testing Tax Authority Updates...');
 // console.log(CarPurchaseManager.taxesAuthority); // Should return updated tax authority details
