@@ -4,8 +4,10 @@ const APP = document.getElementById("app");
 const App = {
   state: {
     currentPlayer: 1,
-    totalScore: 0,
-    currentScore: 0,
+    totalScorePlayer1: 0,
+    totalScorePlayer2: 0,
+    currentScorePlayer1: 0,
+    currentScorePlayer2: 0,
   },
 
   selectors: {
@@ -103,15 +105,21 @@ const App = {
 
   roleDiceBtn() {
     const diceNumArr = this.getdDiceNum();
-    const currentPlayer = this.state.currentPlayer;
-    const currentScoreSelrctor = this.selectors.currentScore(currentPlayer);
-    const currentScore = Number(currentScoreSelrctor.textContent);
+    const currentPlayer = this.state?.currentPlayer;
+    const currentPlayerState = `currentScorePlayer${currentPlayer}`;
+    // const currentScoreSelrctor = this?.selectors.currentScore(currentPlayer);
+    // const currentScore = Number(currentScoreSelrctor.textContent);
 
     if (diceNumArr) {
       this.updateDiceUI(diceNumArr);
       const sumDice = this.sumDice(diceNumArr);
-      const totalScore = this.calculateScore(sumDice, currentScore);
-      this.updateScoreUI(currentScoreSelrctor, totalScore);
+      //   const totalScore = this.calculateScore(sumDice, currentScore);
+      this.state[currentPlayerState] = this.calculateScore(
+        sumDice,
+        this.state[currentPlayerState]
+      );
+
+      this.updateScoreUI(currentScoreSelrctor, this.state[currentPlayerState]);
     }
   },
 };
