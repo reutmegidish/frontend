@@ -1,11 +1,10 @@
 import GameBordUI from "./Modules/UI/GameBordUI.js";
-const APP = document.getElementById("app");
 
 const App = {
   state: {
     currentPlayer: 1,
     totalScore: 0,
-    currentScore: 0,
+    currentScore: 0, // need to update by player
   },
 
   selectors: {
@@ -45,6 +44,7 @@ const App = {
   },
 
   holdBtn() {
+    // need to add target score for win
     const currentPlayer = this.state.currentPlayer;
     const totalScoreSelector = this.selectors.totalScore(currentPlayer);
     const currentScoreSelrctor = this.selectors.currentScore(currentPlayer);
@@ -55,6 +55,7 @@ const App = {
     const currentTotalScore = this.calculateScore(totalScore, currentScore);
     this.updateScoreUI(totalScoreSelector, currentTotalScore);
 
+    this.selectors.currentScore(currentPlayer).textContent = 0;
     this.updateCurrentPlayer();
   },
 
@@ -102,6 +103,7 @@ const App = {
   },
 
   roleDiceBtn() {
+    // TODO: change and save the state for new game + use state instead selector
     const diceNumArr = this.getdDiceNum();
     const currentPlayer = this.state.currentPlayer;
     const currentScoreSelrctor = this.selectors.currentScore(currentPlayer);
